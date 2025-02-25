@@ -4,7 +4,7 @@ from Networksecurity.logging.logger import logger
 ##configurtaion of the data Ingestion Config
 
 from Networksecurity.Entity.config_entity import DataIngestionConfig
-from Networksecurity.Entity.artifcat_entitiy import DataIngestionArtifact
+from Networksecurity.Entity.artifact_entitiy import DataIngestionArtifact
 
 import pandas as pd
 import numpy as np
