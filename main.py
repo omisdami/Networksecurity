@@ -9,8 +9,8 @@ import sys
 if __name__ == "__main__":
     try:
         trainingpipelineconfig = TrainingPipelineConfig()
-        dataingestionconfig = DataIngestionConfig()
-        data_ingestion = DataIngestion()
+        dataingestionconfig = DataIngestionConfig(trainingpipelineconfig)
+        data_ingestion = DataIngestion(dataingestionconfig)
 
         logger.info("Initiate Data Ingestion")
         dataingestionartifact = data_ingestion.initiate_data_ingestion()

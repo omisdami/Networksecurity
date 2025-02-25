@@ -1,6 +1,7 @@
 from datetime import datetime
 import os
 import sys 
+from Networksecurity.constant import training_pipeline
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
