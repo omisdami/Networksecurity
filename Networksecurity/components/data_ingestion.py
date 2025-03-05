@@ -38,7 +38,7 @@ class DataIngestion:
             self.mongo_client = pymongo.MongoClient(MONGO_DB_URL)
             collection = self.mongo_client[database_name][collection_name]
 
-            df= pd.DataFrame(list(collection.find({})))
+            df = pd.DataFrame(list(collection.find({}, {"_id": 0})))
             if "id" in df.columns.to_list():
                 df= df.drop(columns=["id"], axis=1)
 
