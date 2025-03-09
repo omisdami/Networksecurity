@@ -19,12 +19,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9' 
+          python-version: '3.9.12' 
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install flask
+          pip install flask fastapi numpy 
+          pip install -r requirements.txt
 
       - name: Lint code
         run: echo "Linting Repository"
