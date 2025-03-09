@@ -27,6 +27,12 @@ jobs:
           pip install flask fastapi numpy 
           pip install -r requirements.txt
 
+      - name: Authenticate with Dagshub
+        run: |
+          export DAGSHUB_USERNAME="your_dagshub_username"
+          export DAGSHUB_TOKEN="${{ secrets.DAGSHUB_TOKEN }}"
+          echo "DAGSHUB_TOKEN set"
+
       - name: Lint code
         run: echo "Linting Repository"
 
