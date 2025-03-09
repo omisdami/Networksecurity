@@ -29,9 +29,9 @@ jobs:
 
       - name: Authenticate with Dagshub
         run: |
-          export DAGSHUB_USERNAME="your_dagshub_username"
-          export DAGSHUB_TOKEN="${{ secrets.DAGSHUB_TOKEN }}"
-          echo "DAGSHUB_TOKEN set"
+          echo "DAGSHUB_USERNAME=${{ secrets.DAGSHUB_USERNAME }}" >> $GITHUB_ENV
+          echo "DAGSHUB_TOKEN=${{ secrets.DAGSHUB_TOKEN }}" >> $GITHUB_ENV
+          dagshub.auth.add_app_token --username "${{ secrets.DAGSHUB_USERNAME }}" --token "${{ secrets.DAGSHUB_TOKEN }}"
 
       - name: Lint code
         run: echo "Linting Repository"

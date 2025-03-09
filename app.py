@@ -2,6 +2,7 @@ import sys
 import os
 import fastapi 
 import uvicorn
+import dagshub
 
 import certifi
 ca = certifi.where()
@@ -28,10 +29,23 @@ from Networksecurity.utils.Main_utils.utils import load_object
 from Networksecurity.utils.ml_utils.model.estimator import NetworkModel
 
 
-client = pymongo.MongoClient(mongo_db_url, tlsCAFile=ca)
-
 from Networksecurity.constant.training_pipeline import DATA_INGESTION_COLLECTION_NAME
 from Networksecurity.constant.training_pipeline import DATA_INGESTION_DATABASE_NAME
+
+load_dotenv()
+
+#Dagshub Authentication
+DAGSHUB_USERNAME = os.getenv("DAGSHUB_USERNAME")
+DAGSHUB_TOKEN = os.getenv("DAGSHUB_TOKEN")
+
+if not DAGSHUB_USERNAME or not DAGSHUB_TOKEN:
+    raise ValueError("DAGSHUB_USERNAME and DAGSHUB_TOKEN must be set as environment variables.")
+
+dagshub.auth.add_app_token(DAGSHUB_USERNAME, DAGSHUB_TOKEN)
+
+
+
+client = pymongo.MongoClient(mongo_db_url, tlsCAFile=ca)
 
 database = client[DATA_INGESTION_DATABASE_NAME]
 collection = database[DATA_INGESTION_COLLECTION_NAME]
