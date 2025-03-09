@@ -11,5 +11,7 @@ pyaml
 dagshub
 fastapi
 uvicorn
+flask
+pytest
 
 ##-e .
