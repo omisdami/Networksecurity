@@ -34,7 +34,7 @@ jobs:
 
       - name: Authenticate with Dagshub
         run: |
-          python -c "import dagshub; dagshub.auth.add_app_token('${{ secrets.DAGSHUB_USERNAME }}', '${{ secrets.DAGSHUB_TOKEN }}', host='https://dagshub.com')"
+          python -c "import dagshub; dagshub.auth.add_app_token('${{ secrets.DAGSHUB_USERNAME }}', '${{ secrets.DAGSHUB_TOKEN }}')"
 
 
       - name: Lint code

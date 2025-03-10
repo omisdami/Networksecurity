@@ -34,19 +34,23 @@ from Networksecurity.constant.training_pipeline import DATA_INGESTION_DATABASE_N
 
 load_dotenv()
 
-#Dagshub Authentication
 DAGSHUB_USERNAME = os.getenv("DAGSHUB_USERNAME")
 DAGSHUB_TOKEN = os.getenv("DAGSHUB_TOKEN")
 
-if not DAGSHUB_USERNAME or not DAGSHUB_TOKEN:
-    raise ValueError("DAGSHUB_USERNAME and DAGSHUB_TOKEN must be set as environment variables.")
+if DAGSHUB_USERNAME and DAGSHUB_TOKEN:
+    dagshub.auth.add_app_token(DAGSHUB_USERNAME, DAGSHUB_TOKEN)
+    print("Dagshub authentication successful.")
+else:
+    print("Warning: Dagshub credentials are missing. Skipping authentication.")
 
-dagshub.auth.add_app_token(DAGSHUB_USERNAME, DAGSHUB_TOKEN)
 
+MONGO_DB_URL = os.getenv("MONGO_DB_URL")
 
+if not MONGO_DB_URL:
+    raise ValueError(" Error: MONGO_DB_URL is not set in environment variables.")
 
-client = pymongo.MongoClient(mongo_db_url, tlsCAFile=ca)
-
+ca = certifi.where()
+client = pymongo.MongoClient(MONGO_DB_URL, tlsCAFile=ca)
 database = client[DATA_INGESTION_DATABASE_NAME]
 collection = database[DATA_INGESTION_COLLECTION_NAME]
 
