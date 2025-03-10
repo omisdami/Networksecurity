@@ -27,6 +27,11 @@ jobs:
           pip install flask fastapi numpy dagshub
           pip install -r requirements.txt
 
+      - name: Debug Secrets (Check if they are set)
+        run: |
+          echo "DAGSHUB_USERNAME is set: ${{ secrets.DAGSHUB_USERNAME != '' }}"
+          echo "DAGSHUB_TOKEN is set: ${{ secrets.DAGSHUB_TOKEN != '' }}"
+
       - name: Authenticate with Dagshub
         run: |
           python -c "import dagshub; dagshub.auth.add_app_token('${{ secrets.DAGSHUB_USERNAME }}', '${{ secrets.DAGSHUB_TOKEN }}')"
