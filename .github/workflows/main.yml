@@ -8,7 +8,7 @@ on:
         - 'README.md'
 
 jobs:
-  integration-test:
+  integration:
     name: Continuous Integration
     runs-on: ubuntu-latest
 
@@ -32,3 +32,27 @@ jobs:
 
       - name: Run Unit tests
         run: echo "Running unit tests"
+
+  build-and-push-erc-image:
+    name: Continiuous Delivery
+    needs: integration
+    runs-on: ubuntu-latest
+    steps:
+      -name: checkout code
+      uses: actions/checkout@v3
+      
+      -name: Install utilities
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y jq unzip
+      -name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+      -name: Login to  Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
